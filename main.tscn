@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://q46fr4khdtme" path="res://Legacy-Fantasy - High Forest 2.3/Trees/Green-Tree.png" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://nfq8gauwygxq" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://pntoajv3nhcb" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="6_272bh"]
-[ext_resource type="PackedScene" uid="uid://cx5b8tqtyj7sa" path="res://scenes/coin.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://d0vh6geuyecwl" path="res://scenes/apple_knight.tscn" id="8_5vw27"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
 texture = ExtResource("2_0xm2m")
@@ -20372,21 +20372,21 @@ texture_repeat = 2
 anchors_preset = -1
 anchor_right = 1.139
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = -182.0
-offset_right = 2627.87
-offset_bottom = 188.0
+offset_left = 41.0
+offset_top = -171.0
+offset_right = 2666.87
+offset_bottom = 199.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_ig7tw")
 expand_mode = 3
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_h2yge")]
-position = Vector2(1992, 169)
+position = Vector2(2367, 531)
 collision_mask = 7
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-position = Vector2(359, 368)
+position = Vector2(-3, 3)
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
@@ -20439,9 +20439,7 @@ tile_map_data = PackedByteArray("AAD9/x0AAAADAAMAAAD9/x4AAAABAAMAAAD+/x0AAAACAAI
 tile_set = SubResource("TileSet_getpj")
 
 [node name="Chest" parent="." instance=ExtResource("3_272bh")]
-position = Vector2(2612, 539)
+position = Vector2(2680, 60)
 
-[node name="Coin" parent="." instance=ExtResource("8_5vw27")]
-position = Vector2(2483, 1286)
-collision_layer = 4
-collision_mask = 3
+[node name="AppleKnight" parent="." instance=ExtResource("8_5vw27")]
+position = Vector2(2514, 525)
