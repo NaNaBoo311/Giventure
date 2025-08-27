@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bvw5ucew6vvqr" path="res://scenes/chest.gd" id="1_sy5e1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oii8l"]
-size = Vector2(137.5, 72.5)
+size = Vector2(108.75, 72.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sy5e1"]
 atlas = ExtResource("1_oii8l")
@@ -91,16 +91,17 @@ animations = [{
 
 [node name="Chest" type="Node2D"]
 texture_filter = 1
+position = Vector2(23, -14)
 script = ExtResource("1_sy5e1")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(206.25, 202.25)
+position = Vector2(-14.375, 0)
 shape = SubResource("RectangleShape2D_oii8l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(227, 191)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ilhio")
 
