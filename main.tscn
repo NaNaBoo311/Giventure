@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://q46fr4khdtme" path="res://Legacy-Fantasy - High Forest 2.3/Trees/Green-Tree.png" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://nfq8gauwygxq" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://pntoajv3nhcb" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="6_272bh"]
-[ext_resource type="PackedScene" uid="uid://d0vh6geuyecwl" path="res://scenes/apple_knight.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://d0vh6geuyecwl" path="res://scenes/character/apple_knight.tscn" id="8_5vw27"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
 texture = ExtResource("2_0xm2m")
