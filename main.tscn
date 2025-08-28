@@ -4892,9 +4892,9 @@ texture = ExtResource("2_0xm2m")
 4:15/0 = 0
 5:15/0 = 0
 6:15/0 = 0
-6:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6.00656, 8, 4.26553, 8, 8, -8, 8)
+6:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.59718, 8, 3.77703, 8, 8, -8, 8)
 7:15/0 = 0
-7:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 6.00656, 8, 4.26553, 8, 8, -8, 8)
+7:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.59718, 8, 3.77703, 8, 8, -8, 8)
 8:15/0 = 0
 9:15/0 = 0
 10:15/0 = 0
@@ -20382,15 +20382,9 @@ texture = ExtResource("1_ig7tw")
 expand_mode = 3
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_h2yge")]
+visible = false
 position = Vector2(2367, 531)
 collision_mask = 7
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-position = Vector2(-3, 3)
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_top_margin = 0.16
 
 [node name="DecorationLayer1" type="TileMapLayer" parent="."]
 position = Vector2(2, -155)
@@ -20443,3 +20437,10 @@ position = Vector2(2680, 60)
 
 [node name="AppleKnight" parent="." instance=ExtResource("8_5vw27")]
 position = Vector2(2514, 525)
+
+[node name="Camera2D" type="Camera2D" parent="AppleKnight"]
+position = Vector2(4, 16)
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_top_margin = 0.16
