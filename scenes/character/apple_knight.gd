@@ -9,6 +9,7 @@ const JUMP_VELOCITY = -400.0
 var direction : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("player")
 	animation_tree.active = true
 
 func _physics_process(delta: float) -> void:

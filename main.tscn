@@ -1,9 +1,8 @@
-[gd_scene load_steps=35 format=4 uid="uid://c5mpcb68dd0j3"]
+[gd_scene load_steps=34 format=4 uid="uid://c5mpcb68dd0j3"]
 
 [ext_resource type="Texture2D" uid="uid://dddb2nsuh276" path="res://Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://h5ew3yqdi8i8" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bj3pkc43dug16" path="res://scenes/chest.tscn" id="3_272bh"]
-[ext_resource type="PackedScene" uid="uid://ov3lmr3in21u" path="res://scenes/character_body_2d.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://q46fr4khdtme" path="res://Legacy-Fantasy - High Forest 2.3/Trees/Green-Tree.png" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://nfq8gauwygxq" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://pntoajv3nhcb" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="6_272bh"]
@@ -4892,9 +4891,9 @@ texture = ExtResource("2_0xm2m")
 4:15/0 = 0
 5:15/0 = 0
 6:15/0 = 0
-6:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.59718, 8, 3.77703, 8, 8, -8, 8)
+6:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 5.39576, 8, 5.03605, 8, 8, -8, 8)
 7:15/0 = 0
-7:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 3.59718, 8, 3.77703, 8, 8, -8, 8)
+7:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 5.39576, 8, 5.03605, 8, 8, -8, 8)
 8:15/0 = 0
 9:15/0 = 0
 10:15/0 = 0
@@ -20381,11 +20380,6 @@ grow_vertical = 2
 texture = ExtResource("1_ig7tw")
 expand_mode = 3
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_h2yge")]
-visible = false
-position = Vector2(2367, 531)
-collision_mask = 7
-
 [node name="DecorationLayer1" type="TileMapLayer" parent="."]
 position = Vector2(2, -155)
 scale = Vector2(2, 2)
@@ -20433,7 +20427,7 @@ tile_map_data = PackedByteArray("AAD9/x0AAAADAAMAAAD9/x4AAAABAAMAAAD+/x0AAAACAAI
 tile_set = SubResource("TileSet_getpj")
 
 [node name="Chest" parent="." instance=ExtResource("3_272bh")]
-position = Vector2(2680, 60)
+position = Vector2(2137, 545)
 
 [node name="AppleKnight" parent="." instance=ExtResource("8_5vw27")]
 position = Vector2(2514, 525)
