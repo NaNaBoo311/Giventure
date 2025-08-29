@@ -12,8 +12,11 @@ func _ready() -> void:
 			#Set the states up to what they need to function
 			child.character = character
 			child.playback = animation_tree["parameters/playback"]
+			child.animation_tree = animation_tree
 		else:
 			push_warning("Child " + child.name + " is not a State in CharacterStateMachine")
+	if current_state != null:
+		current_state.on_enter()
 			
 
 func _physics_process(delta: float) -> void:

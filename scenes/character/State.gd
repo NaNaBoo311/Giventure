@@ -6,6 +6,7 @@ class_name State
 var character : CharacterBody2D # Passed in from CharacterStateMachine
 var playback: AnimationNodeStateMachinePlayback # Passed in from CharacterStateMachine
 var next_state: State
+var animation_tree: AnimationTree
 
 func state_input(event: InputEvent):
 	pass
