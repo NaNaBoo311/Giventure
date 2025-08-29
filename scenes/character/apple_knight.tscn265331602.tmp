@@ -63,18 +63,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SwordAttack2DArea/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_2n0um"]
 resource_name = "attack1"
@@ -118,12 +106,12 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("SwordAttack2DArea/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
@@ -548,7 +536,6 @@ script = ExtResource("12_5wsqv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordAttack2DArea"]
 position = Vector2(46, 2)
 shape = SubResource("RectangleShape2D_25y1c")
-disabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="CharacterStateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]

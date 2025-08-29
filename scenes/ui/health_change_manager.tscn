@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvk57xiwmxgyx"]
+
+[ext_resource type="Script" uid="uid://bacgiq23obp82" path="res://scenes/ui/health_change_manager.gd" id="1_detld"]
+[ext_resource type="PackedScene" uid="uid://dmgcs44k31p0e" path="res://scenes/ui/health_change_label.tscn" id="2_m2fit"]
+
+[node name="HealthChangeManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2374.0
+offset_top = 532.0
+offset_right = 2414.0
+offset_bottom = 572.0
+script = ExtResource("1_detld")
+health_change_label = ExtResource("2_m2fit")

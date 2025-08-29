@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://c5mpcb68dd0j3"]
+[gd_scene load_steps=36 format=4 uid="uid://c5mpcb68dd0j3"]
 
 [ext_resource type="Texture2D" uid="uid://dddb2nsuh276" path="res://Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://h5ew3yqdi8i8" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0xm2m"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://nfq8gauwygxq" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tree-Assets.png" id="5_7mycd"]
 [ext_resource type="Texture2D" uid="uid://pntoajv3nhcb" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Props-Rocks.png" id="6_272bh"]
 [ext_resource type="PackedScene" uid="uid://d0vh6geuyecwl" path="res://scenes/character/apple_knight.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://cc4kwlv5paho2" path="res://scenes/enemy/mushroom/mushroom.tscn" id="8_kek77"]
+[ext_resource type="PackedScene" uid="uid://bvk57xiwmxgyx" path="res://scenes/ui/health_change_manager.tscn" id="9_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
 texture = ExtResource("2_0xm2m")
@@ -20430,11 +20432,17 @@ tile_set = SubResource("TileSet_getpj")
 position = Vector2(2137, 545)
 
 [node name="AppleKnight" parent="." instance=ExtResource("8_5vw27")]
-position = Vector2(2514, 525)
+position = Vector2(2374, 532)
 
 [node name="Camera2D" type="Camera2D" parent="AppleKnight"]
-position = Vector2(4, 16)
+position = Vector2(-1, 7)
+limit_bottom = 1000
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
-drag_top_margin = 0.16
+
+[node name="Mushroom" parent="." instance=ExtResource("8_kek77")]
+texture_filter = 1
+position = Vector2(2567, 526)
+
+[node name="HealthChangeManager" parent="." instance=ExtResource("9_kek77")]
