@@ -9,5 +9,4 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	for child in body.get_children():
 		if child is Damageable:
-			print("HERE")
 			child.hit(damage)

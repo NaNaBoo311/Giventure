@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
+@onready var sword_attack_2d_area: Area2D = $SwordAttack2DArea
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -33,7 +34,11 @@ func update_animation():
 	animation_tree.set("parameters/Move/blend_position", direction.x)
 
 func update_facing_direction():
-	if direction.x > 0:
+	if direction.x > 0: #facing right
+		if sword_attack_2d_area.position.x < 0:
+			sword_attack_2d_area.position.x *= -1
 		sprite_2d.flip_h = false
 	elif direction.x < 0:
+		if sword_attack_2d_area.position.x > 0:
+			sword_attack_2d_area.position.x *= -1
 		sprite_2d.flip_h = true
