@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc4kwlv5paho2"]
+[gd_scene load_steps=30 format=3 uid="uid://cc4kwlv5paho2"]
 
 [ext_resource type="Texture2D" uid="uid://ch3rn2r0bol02" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Idle.png" id="1_ar2eo"]
 [ext_resource type="Script" uid="uid://ct21afaxgckr3" path="res://scenes/enemy/mushroom/mushroom.gd" id="1_mym64"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bish8hv1ly6q2" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-AttackWithStun.png" id="4_lp7jm"]
 [ext_resource type="Script" uid="uid://ykyylkre40dl" path="res://scenes/character/character_state_machine.gd" id="5_aa2jt"]
 [ext_resource type="Script" uid="uid://bsoqq7xw7g7kh" path="res://scenes/enemy/mushroom/state_ground.gd" id="6_dkvfa"]
+[ext_resource type="Script" uid="uid://bph2mqhx3bste" path="res://scenes/enemy/mushroom/state_chasing.gd" id="8_iqwrd"]
+[ext_resource type="Script" uid="uid://qihh0p4lw3ur" path="res://scenes/enemy/mushroom/state_attack.gd" id="9_yyela"]
 
 [sub_resource type="Animation" id="Animation_884pm"]
 length = 0.7
@@ -47,10 +49,21 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_iqwrd"]
 resource_name = "attack"
-length = 2.4
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -87,6 +100,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxArea2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_mym64"]
@@ -181,6 +206,12 @@ _data = {
 &"run": SubResource("Animation_aa2jt")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lp7jm"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iqwrd"]
+animation = &"run"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6rtdf"]
 animation = &"idle"
 
@@ -202,10 +233,22 @@ blend_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iqwrd"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hqpqa"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n0fpm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yyela"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dkvfa"]
+states/attack/node = SubResource("AnimationNodeAnimation_lp7jm")
+states/attack/position = Vector2(637, 186)
+states/chasing/node = SubResource("AnimationNodeAnimation_iqwrd")
+states/chasing/position = Vector2(420, 186)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_lp7jm")
 states/move/position = Vector2(420, 96)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_iqwrd")]
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_iqwrd"), "move", "chasing", SubResource("AnimationNodeStateMachineTransition_hqpqa"), "chasing", "attack", SubResource("AnimationNodeStateMachineTransition_n0fpm"), "attack", "chasing", SubResource("AnimationNodeStateMachineTransition_yyela")]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ar2eo"]
 radius = 26.0
@@ -214,10 +257,17 @@ height = 58.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7jm"]
 size = Vector2(156, 30)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqwrd"]
+size = Vector2(26, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyela"]
+size = Vector2(12, 37)
+
 [node name="Mushroom" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_mym64")
+chasing_speed = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -243,25 +293,29 @@ shape = SubResource("CapsuleShape2D_ar2eo")
 [node name="Damageable" type="Node" parent="."]
 script = ExtResource("3_884pm")
 
-[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "character", "animation_tree")]
+[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "character", "animation_tree", "vision_area", "ground_ray_cast_2D")]
 script = ExtResource("5_aa2jt")
 current_state = NodePath("Ground")
 character = NodePath("..")
 animation_tree = NodePath("../AnimationTree")
+vision_area = NodePath("../VisionArea")
+ground_ray_cast_2D = NodePath("../GroundGrayCast2D")
 metadata/_custom_type_script = "uid://ykyylkre40dl"
 
-[node name="Ground" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("vision_area", "ground_ray")]
+[node name="Ground" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("chasing_state")]
 script = ExtResource("6_dkvfa")
-vision_area = NodePath("../../VisionArea")
-ground_ray = NodePath("../../GroundGrayCast2D")
+chasing_state = NodePath("../Chasing")
 metadata/_custom_type_script = "uid://bhjtbp8t1hyft"
 
-[node name="VisionArea" type="Area2D" parent="."]
-position = Vector2(-98, 26)
+[node name="Chasing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("attack_state")]
+script = ExtResource("8_iqwrd")
+attack_state = NodePath("../Attack")
+metadata/_custom_type_script = "uid://bhjtbp8t1hyft"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
-position = Vector2(-2, -1)
-shape = SubResource("RectangleShape2D_lp7jm")
+[node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("chasing_state")]
+script = ExtResource("9_yyela")
+chasing_state = NodePath("../Chasing")
+metadata/_custom_type_script = "uid://bhjtbp8t1hyft"
 
 [node name="GroundGrayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-26, 51)
@@ -269,4 +323,32 @@ target_position = Vector2(0, 45)
 collision_mask = 2
 collide_with_areas = true
 
+[node name="VisionArea" type="Area2D" parent="."]
+position = Vector2(-98, 26)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+position = Vector2(-2, -1)
+shape = SubResource("RectangleShape2D_lp7jm")
+
+[node name="HitboxArea2D" type="Area2D" parent="."]
+position = Vector2(-40, 24)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxArea2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_iqwrd")
+disabled = true
+
+[node name="AttackZone" type="Area2D" parent="."]
+position = Vector2(-32, 25)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone"]
+shape = SubResource("RectangleShape2D_yyela")
+
+[connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]
 [connection signal="body_entered" from="VisionArea" to="CharacterStateMachine/Ground" method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="VisionArea" to="CharacterStateMachine/Chasing" method="_on_vision_area_body_exited"]
+[connection signal="body_entered" from="AttackZone" to="CharacterStateMachine/Chasing" method="_on_attack_zone_body_entered"]
+[connection signal="body_exited" from="AttackZone" to="CharacterStateMachine/Chasing" method="_on_attack_zone_body_exited"]
