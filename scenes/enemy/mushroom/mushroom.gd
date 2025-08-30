@@ -8,15 +8,23 @@ extends CharacterBody2D
 @onready var hitbox_area_2d: Area2D = $HitboxArea2D
 @onready var attack_zone: Area2D = $AttackZone
 
-#Character attributes
+#Special character attributes
+@export var chasing_speed : float 
 @export var direction : int = -1
 @export var speed: float = 50
-@export var chasing_speed : float 
+@export var attack_damage : int = 5
+@export var health: int = 50:
+	get:
+		return health
+	set(value):
+		var damage : int = health - value
+		SignalBus.emit_signal("on_health_change", self, damage)
+		health = value
 
 func _ready() -> void:
+	add_to_group("enemy")
 	chasing_speed = speed * 4
 	animation_tree.active = true
-
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -41,3 +49,12 @@ func update_facing_direction():
 			vision_area.position.x *= -1
 			hitbox_area_2d.position.x *= -1
 			attack_zone.position.x *= -1
+
+func get_hit(damage : int):
+	health -= damage
+	if (health <= 0):
+		animation_tree.set("parameters/conditions/die", true)
+
+func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "die":
+		queue_free()

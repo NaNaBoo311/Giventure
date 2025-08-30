@@ -1,11 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://cc4kwlv5paho2"]
+[gd_scene load_steps=36 format=3 uid="uid://cc4kwlv5paho2"]
 
 [ext_resource type="Texture2D" uid="uid://ch3rn2r0bol02" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Idle.png" id="1_ar2eo"]
 [ext_resource type="Script" uid="uid://ct21afaxgckr3" path="res://scenes/enemy/mushroom/mushroom.gd" id="1_mym64"]
 [ext_resource type="Texture2D" uid="uid://cyxintyjyqq0i" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Run.png" id="3_6rtdf"]
-[ext_resource type="Script" uid="uid://c371gfbre5xuo" path="res://scenes/enemy/mushroom/damageable.gd" id="3_884pm"]
 [ext_resource type="Texture2D" uid="uid://bish8hv1ly6q2" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-AttackWithStun.png" id="4_lp7jm"]
 [ext_resource type="Script" uid="uid://ykyylkre40dl" path="res://scenes/character/character_state_machine.gd" id="5_aa2jt"]
+[ext_resource type="Texture2D" uid="uid://bj4kudg3nf42w" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Die.png" id="5_hqpqa"]
 [ext_resource type="Script" uid="uid://bsoqq7xw7g7kh" path="res://scenes/enemy/mushroom/state_ground.gd" id="6_dkvfa"]
 [ext_resource type="Script" uid="uid://bph2mqhx3bste" path="res://scenes/enemy/mushroom/state_chasing.gd" id="8_iqwrd"]
 [ext_resource type="Script" uid="uid://qihh0p4lw3ur" path="res://scenes/enemy/mushroom/state_attack.gd" id="9_yyela"]
@@ -198,10 +198,52 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
+[sub_resource type="Animation" id="Animation_n0fpm"]
+resource_name = "die"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_hqpqa")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6rtdf"]
 _data = {
 &"RESET": SubResource("Animation_884pm"),
 &"attack": SubResource("Animation_iqwrd"),
+&"die": SubResource("Animation_n0fpm"),
 &"idle": SubResource("Animation_mym64"),
 &"run": SubResource("Animation_aa2jt")
 }
@@ -211,6 +253,9 @@ animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iqwrd"]
 animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g5tt2"]
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6rtdf"]
 animation = &"idle"
@@ -241,14 +286,30 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g5tt2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dtnch"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7mdx8"]
+advance_mode = 2
+advance_condition = &"die"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wpjrs"]
+advance_mode = 2
+advance_condition = &"die"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_dkvfa"]
 states/attack/node = SubResource("AnimationNodeAnimation_lp7jm")
 states/attack/position = Vector2(637, 186)
 states/chasing/node = SubResource("AnimationNodeAnimation_iqwrd")
 states/chasing/position = Vector2(420, 186)
+states/die/node = SubResource("AnimationNodeAnimation_g5tt2")
+states/die/position = Vector2(658, 54)
 states/move/node = SubResource("AnimationNodeBlendSpace1D_lp7jm")
 states/move/position = Vector2(420, 96)
-transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_iqwrd"), "move", "chasing", SubResource("AnimationNodeStateMachineTransition_hqpqa"), "chasing", "attack", SubResource("AnimationNodeStateMachineTransition_n0fpm"), "attack", "chasing", SubResource("AnimationNodeStateMachineTransition_yyela")]
+transitions = ["Start", "move", SubResource("AnimationNodeStateMachineTransition_iqwrd"), "move", "chasing", SubResource("AnimationNodeStateMachineTransition_hqpqa"), "chasing", "attack", SubResource("AnimationNodeStateMachineTransition_n0fpm"), "attack", "chasing", SubResource("AnimationNodeStateMachineTransition_yyela"), "chasing", "move", SubResource("AnimationNodeStateMachineTransition_g5tt2"), "chasing", "die", SubResource("AnimationNodeStateMachineTransition_dtnch"), "attack", "die", SubResource("AnimationNodeStateMachineTransition_7mdx8"), "move", "die", SubResource("AnimationNodeStateMachineTransition_wpjrs")]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ar2eo"]
 radius = 26.0
@@ -284,14 +345,12 @@ movie_quit_on_finish = true
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_dkvfa")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/die = false
 parameters/move/blend_position = 0.0059613
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 23)
 shape = SubResource("CapsuleShape2D_ar2eo")
-
-[node name="Damageable" type="Node" parent="."]
-script = ExtResource("3_884pm")
 
 [node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state", "character", "animation_tree", "vision_area", "ground_ray_cast_2D")]
 script = ExtResource("5_aa2jt")
@@ -307,10 +366,14 @@ script = ExtResource("6_dkvfa")
 chasing_state = NodePath("../Chasing")
 metadata/_custom_type_script = "uid://bhjtbp8t1hyft"
 
-[node name="Chasing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("attack_state")]
+[node name="Chasing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("attack_state", "ground_state")]
 script = ExtResource("8_iqwrd")
 attack_state = NodePath("../Attack")
+ground_state = NodePath("../Ground")
 metadata/_custom_type_script = "uid://bhjtbp8t1hyft"
+
+[node name="Timer" type="Timer" parent="CharacterStateMachine/Chasing"]
+one_shot = true
 
 [node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("chasing_state")]
 script = ExtResource("9_yyela")
@@ -347,8 +410,11 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone"]
 shape = SubResource("RectangleShape2D_yyela")
 
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]
+[connection signal="timeout" from="CharacterStateMachine/Chasing/Timer" to="CharacterStateMachine/Chasing" method="_on_timer_timeout"]
 [connection signal="body_entered" from="VisionArea" to="CharacterStateMachine/Ground" method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="CharacterStateMachine/Chasing" method="_on_vision_area_body_exited"]
+[connection signal="body_entered" from="HitboxArea2D" to="CharacterStateMachine/Attack" method="_on_hitbox_area_2d_body_entered"]
 [connection signal="body_entered" from="AttackZone" to="CharacterStateMachine/Chasing" method="_on_attack_zone_body_entered"]
 [connection signal="body_exited" from="AttackZone" to="CharacterStateMachine/Chasing" method="_on_attack_zone_body_exited"]

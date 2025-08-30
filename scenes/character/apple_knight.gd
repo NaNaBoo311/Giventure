@@ -5,6 +5,14 @@ extends CharacterBody2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
 @onready var sword_attack_2d_area: Area2D = $SwordAttack2DArea
 
+@export var health: int = 100:
+	get:
+		return health
+	set(value):
+		var damage : int = health - value
+		SignalBus.emit_signal("on_health_change", self, damage)
+		health = value
+		
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var direction : Vector2 = Vector2.ZERO
@@ -17,7 +25,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
 
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	direction = Input.get_vector("left", "right", "up", "down")
@@ -42,3 +49,6 @@ func update_facing_direction():
 		if sword_attack_2d_area.position.x > 0:
 			sword_attack_2d_area.position.x *= -1
 		sprite_2d.flip_h = true
+
+func get_hit(damage: int):
+	health -= damage

@@ -7,6 +7,5 @@ func _ready() -> void:
 
 	
 func _on_body_entered(body: Node2D) -> void:
-	for child in body.get_children():
-		if child is Damageable:
-			child.hit(damage)
+	if body.is_in_group("enemy"):
+		body.get_hit(damage)

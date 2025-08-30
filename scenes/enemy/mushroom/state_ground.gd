@@ -10,7 +10,8 @@ var _is_idle = false
 var _state_timer: float = 0.0
 
 func on_enter():
-	_set_idle() # start idle or you can call _set_run() to start running
+	playback.travel("move")
+	_set_idle() 
 	
 func state_process(delta):
 	_state_timer -= delta
