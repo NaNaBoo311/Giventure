@@ -7,17 +7,17 @@ class_name GroundState
 @export var attack_state: State
 @export var jump_node : String = 'jump_start'
 @export var attack_node: String = 'attack1'
+
+
+func on_enter():
+	playback.travel("Move")
+
 func state_input(event: InputEvent):
 	if (event.is_action_pressed("jump")):
 		jump()
 	elif (event.is_action_pressed("attack")):
 		attack()
 		
-func on_enter():
-	playback.travel("Move")
-
-func on_exit():
-	pass
 
 func jump():
 	character.velocity.y = jump_velocity

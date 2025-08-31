@@ -6,6 +6,7 @@ var player_in_range: bool = false
 
 func on_enter():
 	timer.start(3)
+	player_in_range = false
 	playback.travel("chasing")
 
  
@@ -23,7 +24,7 @@ func state_process(delta):
 		
 	
 func _on_attack_zone_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("player") && body.is_alive == true:
 		player_in_range = true
 		timer.stop()
 

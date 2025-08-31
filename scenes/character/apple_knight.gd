@@ -4,8 +4,10 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
 @onready var sword_attack_2d_area: Area2D = $SwordAttack2DArea
+@onready var die_state: Node = $CharacterStateMachine/Die
 
-@export var health: int = 100:
+@export var is_alive: bool = true
+@export var health: int = 5:
 	get:
 		return health
 	set(value):
@@ -35,7 +37,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	update_animation()
-	update_facing_direction()
+	if is_alive:
+		update_facing_direction()
 	
 func update_animation():
 	animation_tree.set("parameters/Move/blend_position", direction.x)
@@ -52,3 +55,5 @@ func update_facing_direction():
 
 func get_hit(damage: int):
 	health -= damage
+	if health <= 0:
+		state_machine.current_state.next_state = die_state
