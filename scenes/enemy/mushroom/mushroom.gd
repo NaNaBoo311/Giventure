@@ -13,6 +13,7 @@ extends CharacterBody2D
 @export var direction : int = -1
 @export var speed: float = 50
 @export var attack_damage : int = 5
+@export var max_health : int
 @export var health: int = 50:
 	get:
 		return health
@@ -20,6 +21,7 @@ extends CharacterBody2D
 		var damage : int = health - value
 		SignalBus.emit_signal("on_health_change", self, damage)
 		health = value
+
 
 func _ready() -> void:
 	add_to_group("enemy")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cc4kwlv5paho2"]
+[gd_scene load_steps=38 format=3 uid="uid://cc4kwlv5paho2"]
 
 [ext_resource type="Texture2D" uid="uid://ch3rn2r0bol02" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Idle.png" id="1_ar2eo"]
 [ext_resource type="Script" uid="uid://ct21afaxgckr3" path="res://scenes/enemy/mushroom/mushroom.gd" id="1_mym64"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://bsoqq7xw7g7kh" path="res://scenes/enemy/mushroom/state_ground.gd" id="6_dkvfa"]
 [ext_resource type="Script" uid="uid://bph2mqhx3bste" path="res://scenes/enemy/mushroom/state_chasing.gd" id="8_iqwrd"]
 [ext_resource type="Script" uid="uid://qihh0p4lw3ur" path="res://scenes/enemy/mushroom/state_attack.gd" id="9_yyela"]
+[ext_resource type="Script" uid="uid://0r5y1wl5by7e" path="res://scenes/enemy/mushroom/health_bar.gd" id="10_hqpqa"]
+[ext_resource type="Theme" uid="uid://db2ksywe7f55j" path="res://default_healthbar_theme.tres" id="10_n0fpm"]
 
 [sub_resource type="Animation" id="Animation_884pm"]
 length = 0.7
@@ -329,6 +331,7 @@ collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_mym64")
 chasing_speed = 200.0
+max_health = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
@@ -409,6 +412,16 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone"]
 shape = SubResource("RectangleShape2D_yyela")
+
+[node name="HealthBar" type="ProgressBar" parent="." node_paths=PackedStringArray("character")]
+offset_left = -32.0
+offset_top = -13.0
+offset_right = 34.0
+offset_bottom = -7.0
+theme = ExtResource("10_n0fpm")
+show_percentage = false
+script = ExtResource("10_hqpqa")
+character = NodePath("..")
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]

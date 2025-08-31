@@ -7,7 +7,8 @@ extends CharacterBody2D
 @onready var die_state: Node = $CharacterStateMachine/Die
 
 @export var is_alive: bool = true
-@export var health: int = 5:
+@export var max_health: int
+@onready var health: int = max_health:
 	get:
 		return health
 	set(value):
@@ -15,6 +16,7 @@ extends CharacterBody2D
 		SignalBus.emit_signal("on_health_change", self, damage)
 		health = value
 		
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var direction : Vector2 = Vector2.ZERO

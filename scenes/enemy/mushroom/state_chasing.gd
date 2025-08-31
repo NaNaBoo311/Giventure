@@ -3,10 +3,11 @@ extends State
 @export var attack_state: State
 @export var ground_state: State
 var player_in_range: bool = false
+var player : CharacterBody2D
+
 
 func on_enter():
 	timer.start(3)
-	player_in_range = false
 	playback.travel("chasing")
 
  
@@ -19,12 +20,13 @@ func state_process(delta):
 	character.update_facing_direction()
 	
 	#Change to attack state if the player is in range
-	if player_in_range:
+	if player_in_range && player != null && player.is_alive:
 		next_state = attack_state
-		
-	
+
+
 func _on_attack_zone_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") && body.is_alive == true:
+		player = body
 		player_in_range = true
 		timer.stop()
 

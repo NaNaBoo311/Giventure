@@ -570,6 +570,7 @@ size = Vector2(29, 70)
 texture_filter = 1
 collision_mask = 14
 script = ExtResource("1_xbp8u")
+max_health = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(1.5, 1.5)
