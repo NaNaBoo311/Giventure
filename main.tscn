@@ -20447,6 +20447,6 @@ position = Vector2(2567, 526)
 
 [node name="Mushroom2" parent="." instance=ExtResource("8_kek77")]
 texture_filter = 1
-position = Vector2(1136, 639)
+position = Vector2(634, 717)
 
 [node name="HealthChangeManager" parent="." instance=ExtResource("9_kek77")]

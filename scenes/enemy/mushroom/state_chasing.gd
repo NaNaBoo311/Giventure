@@ -19,7 +19,7 @@ func state_process(delta):
 	#Change direction
 	character.update_facing_direction()
 	
-	#Change to attack state if the player is in range
+	#Change to attack state if the player is in range & alive
 	if player_in_range && player != null && player.is_alive:
 		next_state = attack_state
 

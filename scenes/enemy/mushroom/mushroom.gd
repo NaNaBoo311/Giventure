@@ -7,6 +7,7 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var hitbox_area_2d: Area2D = $HitboxArea2D
 @onready var attack_zone: Area2D = $AttackZone
+@onready var wall_ray_cast_2d: RayCast2D = $WallRayCast2D
 
 #Special character attributes
 @export var chasing_speed : float 
@@ -36,18 +37,23 @@ func _physics_process(delta: float) -> void:
 func update_facing_direction():
 	if not ground_ray_cast_2D.is_colliding():
 		direction *= -1
+	elif wall_ray_cast_2d.is_colliding():
+		direction *= -1
 		
 	if direction > 0:  # facing left
 		sprite_2d.flip_h = true
 		if vision_area.position.x < 0:
 			ground_ray_cast_2D.position.x *= -1
+			wall_ray_cast_2d.position.x *= -1
 			vision_area.position.x *= -1
 			hitbox_area_2d.position.x *= -1
 			attack_zone.position.x *= -1
+			
 	elif direction < 0: # facing right
 		sprite_2d.flip_h = false
 		if vision_area.position.x > 0:
 			ground_ray_cast_2D.position.x *= -1
+			wall_ray_cast_2d.position.x *= -1
 			vision_area.position.x *= -1
 			hitbox_area_2d.position.x *= -1
 			attack_zone.position.x *= -1

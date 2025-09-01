@@ -23,8 +23,7 @@ func open_chest():
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#print(body.get_groups())
-	if body.is_in_group("player"):
-		print("HERE")
+	if body.is_in_group("player") && body.is_alive:
 		player_nearby = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
