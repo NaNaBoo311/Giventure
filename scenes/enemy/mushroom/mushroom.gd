@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var wall_ray_cast_2d: RayCast2D = $WallRayCast2D
 
 #Special character attributes
+@export var is_alive = true
 @export var chasing_speed : float 
 @export var direction : int = -1
 @export var speed: float = 50
@@ -61,6 +62,8 @@ func update_facing_direction():
 func get_hit(damage : int):
 	health -= damage
 	if (health <= 0):
+		is_alive = false
+		set_collision_layer_value(4, false)
 		animation_tree.set("parameters/conditions/die", true)
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
