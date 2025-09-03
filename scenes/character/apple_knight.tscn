@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://d0vh6geuyecwl"]
+[gd_scene load_steps=54 format=3 uid="uid://d0vh6geuyecwl"]
 
 [ext_resource type="Texture2D" uid="uid://djr35o5kaqitj" path="res://Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="1_kah26"]
 [ext_resource type="Script" uid="uid://dxdl7kxojra1o" path="res://scenes/character/apple_knight.gd" id="1_xbp8u"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://cgj7vffjalq2s" path="res://scenes/character/state_attack.gd" id="10_5wsqv"]
 [ext_resource type="Script" uid="uid://5j0r1etihf53" path="res://scenes/character/sword_attack_2d_area.gd" id="12_5wsqv"]
 [ext_resource type="Script" uid="uid://c77ungybbunfo" path="res://scenes/character/state_die.gd" id="12_jjabm"]
-[ext_resource type="Script" uid="uid://bij5p428v5jy1" path="res://scenes/character/damageable.gd" id="13_2n0um"]
 
 [sub_resource type="Animation" id="Animation_5o5gf"]
 length = 0.001
@@ -568,7 +567,7 @@ size = Vector2(29, 70)
 
 [node name="AppleKnight" type="CharacterBody2D"]
 texture_filter = 1
-collision_mask = 14
+collision_mask = 6
 script = ExtResource("1_xbp8u")
 max_health = 20
 
@@ -645,9 +644,6 @@ script = ExtResource("12_5wsqv")
 position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_25y1c")
 disabled = true
-
-[node name="Damageable" type="Node" parent="."]
-script = ExtResource("13_2n0um")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="CharacterStateMachine/Attack" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationTree" to="CharacterStateMachine/Attack" method="_on_animation_tree_animation_finished"]

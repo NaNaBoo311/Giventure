@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://c5mpcb68dd0j3"]
+[gd_scene load_steps=40 format=4 uid="uid://c5mpcb68dd0j3"]
 
 [ext_resource type="Texture2D" uid="uid://dddb2nsuh276" path="res://Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://h5ew3yqdi8i8" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0xm2m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Theme" uid="uid://db2ksywe7f55j" path="res://default_healthbar_theme.tres" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://cg4sdavuv2sqd" path="res://canvas_layer/player_health_bar.gd" id="11_efxa6"]
 [ext_resource type="Script" uid="uid://dq7nu5c5cbml8" path="res://canvas_layer/player_health_bar_label.gd" id="12_dg77c"]
+[ext_resource type="PackedScene" uid="uid://ct6ee2pkf175c" path="res://scenes/enemy/small_bee/small_bee.tscn" id="13_ycdy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
 texture = ExtResource("2_0xm2m")
@@ -20446,7 +20447,7 @@ drag_vertical_enabled = true
 
 [node name="Mushroom" parent="." instance=ExtResource("8_kek77")]
 texture_filter = 1
-position = Vector2(2567, 526)
+position = Vector2(2948, 542)
 
 [node name="Mushroom2" parent="." instance=ExtResource("8_kek77")]
 texture_filter = 1
@@ -20455,7 +20456,6 @@ position = Vector2(634, 717)
 [node name="HealthChangeManager" parent="." instance=ExtResource("9_kek77")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -20491,3 +20491,6 @@ offset_bottom = 21.0
 text = "hehe"
 horizontal_alignment = 1
 script = ExtResource("12_dg77c")
+
+[node name="SmallBee" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(2553, 534)

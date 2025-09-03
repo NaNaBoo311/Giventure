@@ -4,10 +4,10 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var vision_area: Area2D = $VisionArea
 @onready var ground_ray_cast_2D: RayCast2D = $GroundGrayCast2D
+@onready var wall_ray_cast_2d: RayCast2D = $WallRayCast2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var hitbox_area_2d: Area2D = $HitboxArea2D
 @onready var attack_zone: Area2D = $AttackZone
-@onready var wall_ray_cast_2d: RayCast2D = $WallRayCast2D
 
 #Special character attributes
 @export var is_alive = true
