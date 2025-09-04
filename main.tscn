@@ -20447,7 +20447,7 @@ drag_vertical_enabled = true
 
 [node name="Mushroom" parent="." instance=ExtResource("8_kek77")]
 texture_filter = 1
-position = Vector2(2948, 542)
+position = Vector2(1751, 513)
 
 [node name="Mushroom2" parent="." instance=ExtResource("8_kek77")]
 texture_filter = 1
@@ -20493,4 +20493,4 @@ horizontal_alignment = 1
 script = ExtResource("12_dg77c")
 
 [node name="SmallBee" parent="." instance=ExtResource("13_ycdy4")]
-position = Vector2(2553, 534)
+position = Vector2(2930, 577)

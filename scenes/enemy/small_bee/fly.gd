@@ -1,18 +1,19 @@
 extends State
 
-var origin: Vector2
+var origin: Vector2 
 var target_point: Vector2
 var player: Node2D = null
 var player_in_attack_zone : bool = false
 @export var attack_state: State
 func on_enter():
-	if player_in_attack_zone:
+	if player_in_attack_zone && player && player.is_alive:
 		next_state = attack_state
-	origin = character.global_position
+	if origin == Vector2.ZERO:
+		origin = character.global_position
 	_pick_new_target()
 
 func state_process(delta: float):
-	if player_in_attack_zone: #Switch to Attack state
+	if player_in_attack_zone && player && player.is_alive: #Switch to Attack state
 		next_state = attack_state
 	
 	if player && player.is_alive:  #  Chase mode
