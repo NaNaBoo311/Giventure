@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var state_machine: CharacterStateMachine = $CharacterStateMachine
 @onready var sword_attack_2d_area: Area2D = $SwordAttack2DArea
 @onready var die_state: Node = $CharacterStateMachine/Die
+@onready var hit_flash_animation_player: AnimationPlayer = $HitFlashAnimationPlayer
 
 @export var is_alive: bool = true
 @export var max_health: int
@@ -57,5 +58,6 @@ func update_facing_direction():
 
 func get_hit(damage: int):
 	health -= damage
+	hit_flash_animation_player.play("hit_flash")
 	if health <= 0:
 		state_machine.current_state.next_state = die_state

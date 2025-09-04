@@ -1,7 +1,8 @@
-[gd_scene load_steps=54 format=3 uid="uid://d0vh6geuyecwl"]
+[gd_scene load_steps=59 format=3 uid="uid://d0vh6geuyecwl"]
 
 [ext_resource type="Texture2D" uid="uid://djr35o5kaqitj" path="res://Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="1_kah26"]
 [ext_resource type="Script" uid="uid://dxdl7kxojra1o" path="res://scenes/character/apple_knight.gd" id="1_xbp8u"]
+[ext_resource type="Shader" uid="uid://gxfu46sflms5" path="res://hit_flash.tres" id="2_lklsi"]
 [ext_resource type="Texture2D" uid="uid://vb1nclftunny" path="res://Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="2_xbp8u"]
 [ext_resource type="Texture2D" uid="uid://mprb3d33qjl7" path="res://Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="4_667yi"]
 [ext_resource type="Script" uid="uid://ykyylkre40dl" path="res://scenes/character/character_state_machine.gd" id="4_grt4a"]
@@ -14,6 +15,50 @@
 [ext_resource type="Script" uid="uid://cgj7vffjalq2s" path="res://scenes/character/state_attack.gd" id="10_5wsqv"]
 [ext_resource type="Script" uid="uid://5j0r1etihf53" path="res://scenes/character/sword_attack_2d_area.gd" id="12_5wsqv"]
 [ext_resource type="Script" uid="uid://c77ungybbunfo" path="res://scenes/character/state_die.gd" id="12_jjabm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjabm"]
+resource_local_to_scene = true
+shader = ExtResource("2_lklsi")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_jts3f"]
+resource_name = "hit_flash"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_51kd3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vx8xf"]
+_data = {
+&"RESET": SubResource("Animation_51kd3"),
+&"hit_flash": SubResource("Animation_jts3f")
+}
 
 [sub_resource type="Animation" id="Animation_5o5gf"]
 length = 0.001
@@ -572,7 +617,13 @@ script = ExtResource("1_xbp8u")
 max_health = 20
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jjabm")
 scale = Vector2(1.5, 1.5)
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_vx8xf")
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

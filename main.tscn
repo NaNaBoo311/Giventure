@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://c5mpcb68dd0j3"]
+[gd_scene load_steps=41 format=4 uid="uid://c5mpcb68dd0j3"]
 
 [ext_resource type="Texture2D" uid="uid://dddb2nsuh276" path="res://Legacy-Fantasy - High Forest 2.3/Background/Background.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://h5ew3yqdi8i8" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_0xm2m"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cg4sdavuv2sqd" path="res://canvas_layer/player_health_bar.gd" id="11_efxa6"]
 [ext_resource type="Script" uid="uid://dq7nu5c5cbml8" path="res://canvas_layer/player_health_bar_label.gd" id="12_dg77c"]
 [ext_resource type="PackedScene" uid="uid://ct6ee2pkf175c" path="res://scenes/enemy/small_bee/small_bee.tscn" id="13_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://mbt10sng2tk8" path="res://scenes/enemy/skeleton_sword_white/skeleton_sword_white.tscn" id="14_w48qg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycdy4"]
 texture = ExtResource("2_0xm2m")
@@ -20453,6 +20454,9 @@ position = Vector2(1751, 513)
 texture_filter = 1
 position = Vector2(634, 717)
 
+[node name="SmallBee" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(2930, 577)
+
 [node name="HealthChangeManager" parent="." instance=ExtResource("9_kek77")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -20492,5 +20496,5 @@ text = "hehe"
 horizontal_alignment = 1
 script = ExtResource("12_dg77c")
 
-[node name="SmallBee" parent="." instance=ExtResource("13_ycdy4")]
-position = Vector2(2930, 577)
+[node name="SkeletonSwordWhite" parent="." instance=ExtResource("14_w48qg")]
+position = Vector2(2616, 523)
