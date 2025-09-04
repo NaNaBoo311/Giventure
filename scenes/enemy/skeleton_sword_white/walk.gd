@@ -1,8 +1,8 @@
 extends State
 
 @export var idle_state: State
-@export var min_walk_time: float = 4.0   # minimum seconds before switching
-@export var max_walk_time: float = 6.0   # maximum seconds before switching
+@export var min_walk_time: float = 6.0   # minimum seconds before switching
+@export var max_walk_time: float = 8.0   # maximum seconds before switching
 
 var time_to_switch: float = 0.0
 var elapsed: float = 0.0
@@ -26,3 +26,5 @@ func state_process(delta):
 	character.update_facing_direction()
 	if elapsed >= time_to_switch:
 		next_state = idle_state
+	
+	character.move_and_slide()

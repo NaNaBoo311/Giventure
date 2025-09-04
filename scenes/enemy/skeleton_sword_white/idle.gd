@@ -11,7 +11,6 @@ func on_enter():
 	playback.travel("idle")
 	# pick a random time before switching
 	time_to_switch = randf_range(min_idle_time, max_idle_time)
-	character.velocity.x = 0
 	elapsed = 0.0
 
 func state_process(delta):

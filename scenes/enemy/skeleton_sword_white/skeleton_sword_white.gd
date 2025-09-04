@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var character_state_machine: CharacterStateMachine = $CharacterStateMachine
 @onready var ground_ray_cast_2d: RayCast2D = $GroundRayCast2D
@@ -10,13 +11,13 @@ extends CharacterBody2D
 @onready var hit_flash_animation_player: AnimationPlayer = $HitFlashAnimationPlayer
 @onready var attack_state: Node = $CharacterStateMachine/Attack
 @onready var walk_state: Node = $CharacterStateMachine/Walk
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var die_state: Node = $CharacterStateMachine/Die
 
 @export var speed: int = 50
 @export var direction : Vector2 
-@export var attack_damage: int = 15
-@export var max_health : int = 100
-@export var health: int = 100:
+@export var attack_damage: int = 1
+@export var max_health : int = 60
+@export var health: int = 60:
 	get:
 		return health
 	set(value):
@@ -32,7 +33,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	move_and_slide()
 
 func update_facing_direction():
 	if not ground_ray_cast_2d.is_colliding():
@@ -57,8 +57,4 @@ func get_hit(damage : int):
 	health -= damage
 	hit_flash_animation_player.play("hit_flash")
 	if health <= 0:
-		queue_free()
-
-func _on_attack_zone_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		character_state_machine.current_state.next_state = attack_state
+		character_state_machine.current_state.next_state = die_state
