@@ -1,8 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://cc4kwlv5paho2"]
+[gd_scene load_steps=39 format=3 uid="uid://cc4kwlv5paho2"]
 
 [ext_resource type="Texture2D" uid="uid://ch3rn2r0bol02" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Idle.png" id="1_ar2eo"]
 [ext_resource type="Script" uid="uid://ct21afaxgckr3" path="res://scenes/enemy/mushroom/mushroom.gd" id="1_mym64"]
-[ext_resource type="Shader" uid="uid://gxfu46sflms5" path="res://hit_flash.tres" id="2_dtnch"]
 [ext_resource type="Texture2D" uid="uid://cyxintyjyqq0i" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-Run.png" id="3_6rtdf"]
 [ext_resource type="Texture2D" uid="uid://bish8hv1ly6q2" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Mushroom/Mushroom-AttackWithStun.png" id="4_lp7jm"]
 [ext_resource type="Script" uid="uid://ykyylkre40dl" path="res://scenes/character/character_state_machine.gd" id="5_aa2jt"]
@@ -13,49 +12,6 @@
 [ext_resource type="Script" uid="uid://dmiifvjcb1ryq" path="res://scenes/enemy/mushroom/die.gd" id="10_g5tt2"]
 [ext_resource type="Script" uid="uid://0r5y1wl5by7e" path="res://scenes/enemy/mushroom/health_bar.gd" id="10_hqpqa"]
 [ext_resource type="Theme" uid="uid://db2ksywe7f55j" path="res://default_healthbar_theme.tres" id="10_n0fpm"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mdx8"]
-shader = ExtResource("2_dtnch")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(1, 1, 1, 1)
-
-[sub_resource type="Animation" id="Animation_wpjrs"]
-resource_name = "hit_flash"
-length = 0.2
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_dxycm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wkrly"]
-_data = {
-&"RESET": SubResource("Animation_dxycm"),
-&"hit_flash": SubResource("Animation_wpjrs")
-}
 
 [sub_resource type="Animation" id="Animation_884pm"]
 length = 0.7
@@ -379,15 +335,9 @@ chasing_speed = 200.0
 max_health = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_7mdx8")
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_ar2eo")
 hframes = 7
-
-[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_wkrly")
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

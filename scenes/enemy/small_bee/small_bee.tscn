@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://ct6ee2pkf175c"]
+[gd_scene load_steps=34 format=3 uid="uid://ct6ee2pkf175c"]
 
 [ext_resource type="Texture2D" uid="uid://66x1keyhfgfp" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="1_o6leh"]
 [ext_resource type="Script" uid="uid://bmhdcgj2ncfyw" path="res://scenes/enemy/small_bee/small_bee.gd" id="1_xha28"]
+[ext_resource type="Shader" uid="uid://gxfu46sflms5" path="res://hit_flash.tres" id="2_rru70"]
 [ext_resource type="Texture2D" uid="uid://rexjb2qxp5c8" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Attack/Attack-Sheet.png" id="3_32onr"]
 [ext_resource type="Script" uid="uid://ykyylkre40dl" path="res://scenes/character/character_state_machine.gd" id="3_msaqr"]
 [ext_resource type="Script" uid="uid://by0dcp16dh41n" path="res://scenes/enemy/small_bee/fly.gd" id="4_32onr"]
@@ -10,6 +11,50 @@
 [ext_resource type="Script" uid="uid://m4htnrvpxr57" path="res://scenes/enemy/small_bee/die.gd" id="7_mxirr"]
 [ext_resource type="Theme" uid="uid://db2ksywe7f55j" path="res://default_healthbar_theme.tres" id="9_deesx"]
 [ext_resource type="Script" uid="uid://dy6urrmn0jepa" path="res://scenes/enemy/small_bee/health_bar.gd" id="10_y4x18"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nwrho"]
+resource_local_to_scene = true
+shader = ExtResource("2_rru70")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_rru70"]
+resource_name = "hit_flash"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_nwrho"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_md40o"]
+_data = {
+&"RESET": SubResource("Animation_nwrho"),
+&"hit_flash": SubResource("Animation_rru70")
+}
 
 [sub_resource type="Animation" id="Animation_2vr7c"]
 length = 0.001
@@ -262,7 +307,13 @@ script = ExtResource("1_xha28")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_nwrho")
 scale = Vector2(1.5, 1.5)
+
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_md40o")
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

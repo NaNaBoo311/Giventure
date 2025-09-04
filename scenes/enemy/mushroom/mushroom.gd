@@ -8,6 +8,9 @@ extends CharacterBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var hitbox_area_2d: Area2D = $HitboxArea2D
 @onready var attack_zone: Area2D = $AttackZone
+@onready var character_state_machine: CharacterStateMachine = $CharacterStateMachine
+@onready var die_state: Node = $CharacterStateMachine/Die
+@onready var hit_flash_animation_player: AnimationPlayer = $HitFlashAnimationPlayer
 
 #Special character attributes
 @export var is_alive = true
@@ -61,11 +64,10 @@ func update_facing_direction():
 
 func get_hit(damage : int):
 	health -= damage
+	hit_flash_animation_player.play("hit_flash")
 	if (health <= 0):
-		is_alive = false
-		set_collision_layer_value(4, false)
-		animation_tree.set("parameters/conditions/die", true)
-
+		character_state_machine.current_state.next_state = die_state
+		
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "die":
 		queue_free()
